@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+  mwr-rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - hostname=messaging-with-rabbitmq
+
+  mwr-postgres:
+    image: "postgres:10.9"
+    volumes:
+      - postgres-data-mwr:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=1234abcd
+
+
+volumes:
+  postgres-data-mwr:
