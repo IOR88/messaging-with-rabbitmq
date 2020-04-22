@@ -24,3 +24,9 @@ class MessageViewSet(viewsets.ModelViewSet):
         'user': ('exact',),
         'room': ('exact',)
     }
+
+
+class RoomViewSet(viewsets.ModelViewSet):
+    queryset = models.Room.objects.all()
+    serializer_class = serializers.RoomSerializer
+    filter_backends = (django_filters.DjangoFilterBackend,)

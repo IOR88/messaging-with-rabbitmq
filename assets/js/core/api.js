@@ -3,10 +3,10 @@ import axios from 'axios';
 import {getCookie} from "../utils";
 import qs from 'qs';
 
-const COLLAGE_BASE_URL = 'http://localhost:8000/';
+const MWR_BASE_URL = 'http://localhost:8000/';
 
 export const instance = axios.create({
-  baseURL: COLLAGE_BASE_URL,
+  baseURL: MWR_BASE_URL,
   headers: {
       'X-CSRFToken': getCookie('csrftoken')
   },
@@ -35,4 +35,8 @@ export const users = {
 export const messages = {
     all: (params) => requestHandler({url: `${API}/chat/messages/`, method: 'GET', params}),
     post: (data) => requestHandler({url: `${API}/chat/messages/`, method: 'POST', data})
+};
+
+export const rooms = {
+    all: (params) => requestHandler({url: `${API}/chat/rooms/`, method: 'GET', params})
 };
