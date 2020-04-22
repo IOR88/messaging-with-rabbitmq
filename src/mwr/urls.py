@@ -24,7 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     urls.url('api/chat/', urls.include(chat_urls.urlpatterns)),
     urls.url(r'^$', base.RedirectView.as_view(
-        pattern_name='home',
         url='/api/chat/base',
         permanent=True
     ))

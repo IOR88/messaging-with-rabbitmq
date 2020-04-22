@@ -1,7 +1,7 @@
 'use strict';
 import axios from 'axios';
 import {getCookie} from "../utils";
-import qs from 'qs'
+import qs from 'qs';
 
 const COLLAGE_BASE_URL = 'http://localhost:8000/';
 
@@ -28,6 +28,11 @@ async function requestHandler({url, method, data, params}){
 
 const API = 'api';
 
-export const chat = {
-    all: () => requestHandler({url: `${API}/chat/`, method: 'GET'})
+export const users = {
+    all: () => requestHandler({url: `${API}/chat/users/active`, method: 'GET'})
+};
+
+export const messages = {
+    all: (params) => requestHandler({url: `${API}/chat/messages/`, method: 'GET', params}),
+    post: (data) => requestHandler({url: `${API}/chat/messages/`, method: 'POST', data})
 };

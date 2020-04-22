@@ -29,7 +29,9 @@ setuptools.setup(
     packages=[
         'mwr',
         'chat',
-        'chat.migrations'
+        'chat.migrations',
+        'chat.management',
+        'chat.management.commands'
 
     ],
     include_package_data=True,

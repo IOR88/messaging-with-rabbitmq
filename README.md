@@ -44,6 +44,14 @@ Run migrations.
 ```bash
 mwr-manage migrate
 ```
+Create superuser.
+```bash
+mwr-manage createsuperuser
+```
+Create dump data.
+```bash
+mwr-manage populate_with_dump_data
+```
 Run django project.
 ```bash
 mwr-manage runserver
