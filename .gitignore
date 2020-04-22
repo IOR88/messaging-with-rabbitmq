@@ -1,0 +1,9 @@
+*.py[cod]
+*.swp
+.idea/
+__pycache__/
+build/
+src/mwr.egg-info/
+dist/
+node_modules
+src/db.sqlite3

@@ -1,0 +1,25 @@
+@startuml
+
+database PostgreSQL
+
+node "RabbitMQ(QUEUES)" as r
+component "Celery API(PRODUCER)" as capi
+node "Celery Workers(N)(CONSUMER)" as cw
+
+capi -> r : add message to the queue
+r --> cw : messages delivery
+cw -> PostgreSQL : 0. save results OR
+
+package "Celery Tasks(Namespaces)" as ct {
+    (Machine Learning) as ml
+}
+
+cw ----> ml : execute tasks
+
+cw --> capi : 1. do RPC
+
+database ML
+
+ml --> ML : where and how do we\nstore trained network ?
+
+@enduml

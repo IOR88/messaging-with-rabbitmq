@@ -3,6 +3,16 @@ The aim of the project is to make a proof of concept for sentiment analyse(emoti
 used for a chat with RabbitMQ as message broker. We want to recognize/show the emotions
 of chat participants.
 
+## concept
+
+### generic view
+![image flow](docs/flow.png)
+
+### messaging
+
+### ai
+
+
 ## technological stack
 Python 3.6.8 + requirements.txt
 RabbitMQ 3.8.3 Erlang 22.3.2
@@ -15,6 +25,33 @@ In order to quickly run needed services we use docker and docker-compose.
 Execute from main directory, it will run postgresql and rabbitmq containers.
 ```bash
 ./docker/up.sh
+```
+
+In order to build web client application.
+Install dependencies.
+```bash
+npm install
+```
+Run webpack-dev-server.
+```bash
+npm run webpack-dev-server
+```
+Install python project in development mode.
+```bash
+pip install -e .
+```
+Run migrations.
+```bash
+mwr-manage migrate
+```
+Run django project.
+```bash
+mwr-manage runserver
+```
+
+Run celery workers.
+```bash
+TODO
 ```
 
 ## test
