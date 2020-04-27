@@ -1,0 +1,23 @@
+@startuml
+
+node WebSocket
+
+node Node
+
+node Python
+
+node "Celery Workers(N)(CONSUMER)" as cw
+
+database PostgreSQL as psql
+node "RabbitMQ(QUEUES)" as r
+
+WebSocket <--> Node : connection
+Node <--> r : publish
+
+
+
+cw <--> r : consume
+Python <--> cw : execute
+Python <--> psql : handle resources
+
+@enduml

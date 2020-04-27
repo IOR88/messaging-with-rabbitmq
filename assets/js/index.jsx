@@ -4,6 +4,7 @@ import React, {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
 import lodash from 'lodash';
 import {users, rooms} from './core/api';
+import {createSocket} from "./core/sockets";
 
 
 class App extends Component {
@@ -12,7 +13,8 @@ class App extends Component {
         super(props);
         this.state = {
             users: [],
-            rooms: []
+            rooms: [],
+            connection: null
         };
     }
 
@@ -24,12 +26,16 @@ class App extends Component {
                 this.setState({users: response.data});
             });
 
+        //get rooms
         rooms
             .all()
             .then((response)=>{
                 this.setState({rooms: response.data});
             });
 
+        //create websocket connection
+        const connection = createSocket();
+        this.setState({connection});
     }
 
     render(){

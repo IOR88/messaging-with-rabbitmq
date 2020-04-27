@@ -1,9 +1,9 @@
 import io from 'socket.io-client';
 
-const MWR_BASE_URL = 'http://localhost:8000/';
+const MWR_BASE_URL = 'http://localhost:8000/ws/';
 
-function createSocket(channel){
-    return io.connect(`${MWR_BASE_URL}${channel}`)
+function createSocket(){
+    return io.connect(`${MWR_BASE_URL}`);
 }
 
 export {createSocket}
