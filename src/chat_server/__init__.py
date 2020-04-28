@@ -1,5 +1,5 @@
 from __future__ import absolute_import, unicode_literals
-from mwr.celery import app as celery_app
+from chat_server.celery import app as celery_app
 
 __version__ = '0.0.0'
 

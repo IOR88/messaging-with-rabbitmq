@@ -57,9 +57,14 @@ Run django project.
 mwr-manage runserver
 ```
 
-Run celery workers.
+Run tornado server
 ```bash
-TODO
+python src/chat_server/main.py
+```
+
+Run celery workers(we load tasks from main django project and chat server).
+```bash
+celery -A mwr -A chat_server worker -l info
 ```
 
 ## test

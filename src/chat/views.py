@@ -2,7 +2,7 @@ from django.views import generic
 from rest_framework import views, response, viewsets, status
 import django_filters.rest_framework as django_filters
 from django.contrib.auth import models as auth_models
-from chat import models, serializers
+from chat import models, serializers, tasks
 
 
 class BaseView(generic.TemplateView):
@@ -30,3 +30,10 @@ class RoomViewSet(viewsets.ModelViewSet):
     queryset = models.Room.objects.all()
     serializer_class = serializers.RoomSerializer
     filter_backends = (django_filters.DjangoFilterBackend,)
+
+
+class TestingView(views.APIView):
+
+    def get(self, request):
+        tasks.testing(request.query_params['message'])
+        return response.Response('OK')

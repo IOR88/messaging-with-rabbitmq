@@ -31,7 +31,8 @@ setuptools.setup(
         'chat',
         'chat.migrations',
         'chat.management',
-        'chat.management.commands'
+        'chat.management.commands',
+        'chat_server'
 
     ],
     include_package_data=True,

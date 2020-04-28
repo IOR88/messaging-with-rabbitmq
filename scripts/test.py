@@ -3,7 +3,7 @@ Testing connection within the messaging stack Celery, RabbitMQ, PostgreSQL
 """
 from celery import Celery
 
-app = Celery('test', broker='pyamqp://guest@localhost//',
+app = Celery('test', broker='pyamqp://guest:guest@localhost:15672//',
              backend='db+postgresql://postgres:1234abcd@localhost:5432/postgres')
 
 

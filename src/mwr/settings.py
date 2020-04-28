@@ -119,3 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+CELERY_BROKER_URL = 'pyamqp://guest:guest@localhost:15672//'
+CELERY_RESULT_BACKEND = 'db+postgresql://postgres:1234abcd@localhost:5432/postgres'

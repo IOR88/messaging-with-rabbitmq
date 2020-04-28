@@ -9,5 +9,6 @@ router.register(r'^rooms', views.RoomViewSet)
 
 urlpatterns = [
     urls.url('^base/$', views.BaseView.as_view()),
+    urls.url('^testing/$', views.TestingView.as_view()),
     urls.url('^users/active/$', views.ActiveUsers.as_view()),
 ] + router.urls

@@ -36,6 +36,11 @@ class App extends Component {
         //create websocket connection
         const connection = createSocket();
         this.setState({connection});
+        connection.on('testing', (socket) => {
+            window.alert(socket);
+            debugger;
+
+        });
     }
 
     render(){
