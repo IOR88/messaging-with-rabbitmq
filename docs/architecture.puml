@@ -1,23 +1,40 @@
 @startuml
 
-node WebSocket
+allow_mixing
 
-node Node
+node WebSocket {
+    component "Socket.io.Client" as sioc
+}
 
-node Python
+node "Chat Server(Tornado||Node)" as chatserver {
+    component "Socket.io.Server" as sios
+}
+node "Main Server(Django)" as mainserver {
+    component "Celery Client" as celeryclient
+}
 
-node "Celery Workers(N)(CONSUMER)" as cw
 
-database PostgreSQL as psql
+
+node "Celery Workers(N)(CONSUMER)" as celeryworkers
+
+
 node "RabbitMQ(QUEUES)" as r
 
-WebSocket <--> Node : connection
-Node <--> r : publish
+database QUEUES as queues {
+    class "socket.io" as sioqueue {
 
+    }
+}
 
+database PostgreSQL as psql {
+}
 
-cw <--> r : consume
-Python <--> cw : execute
-Python <--> psql : handle resources
+sioc <--> sios : connection
 
+sios <--> sioqueue : produce/publish
+r <--> queues : messages delivery
+r --> celeryworkers : messages delivery
+mainserver --> psql : request data
+celeryclient ---> sioqueue : publish
+celeryworkers ---> psql: save results
 @enduml

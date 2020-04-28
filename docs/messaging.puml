@@ -1,0 +1,24 @@
+@startuml
+
+participant "Django Server(Main)" as django_server_main
+participant "Celery Client" as celery_client
+participant "Celery Worker" as celery_worker
+box "Queues" #LightBlue
+    participant default
+    participant socketio
+end box
+participant "Socket.io" as socket_io
+participant "Tornado Server(Chat)" as tornado_server_chat
+
+
+
+autonumber 0 "<font color=red><b>Message 0 "
+--> django_server_main : receives request
+django_server_main --> celery_client : use celery client\nto produce task
+celery_client --> default : publish message
+celery_worker <-- default : consume message
+celery_worker --> socket_io : use socket.io client to\npublish message
+socket_io --> socketio : publish message(From Main Server)
+socket_io <-- socketio : consume message(Consume From Chat Server)
+socket_io --> tornado_server_chat : socket io client broadcast message\nto all participants with tornado
+@enduml

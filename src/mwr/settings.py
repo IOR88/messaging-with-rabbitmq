@@ -120,6 +120,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
-CELERY_BROKER_URL = 'pyamqp://guest:guest@localhost:15672//'
+CELERY_BROKER_URL = 'pyamqp://guest:guest@localhost:5672/'
 CELERY_RESULT_BACKEND = 'db+postgresql://postgres:1234abcd@localhost:5432/postgres'
+CELERY_TASK_ROUTES = {
+    'testing': {'queue': 'default'}
+}
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'

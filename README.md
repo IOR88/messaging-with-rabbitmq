@@ -8,7 +8,11 @@ of chat participants.
 ### generic view
 ![image flow](docs/flow.png)
 
+### architecture
+![image flow](docs/architecture.png)
+
 ### messaging
+![image flow](docs/messaging.png)
 
 ### ai
 
@@ -82,3 +86,16 @@ python test.py
 
 After that in Celery logs You will see a message that task was executed. PostgreSQL was used as
 celery backend, You should see celery tables and existing records.
+
+
+## architectural explanation
+We are doing messaging with RabbitMQ as message broker. RabbitMQ is used here for 2 purposes,
+first we want to use it as publish/consume strategy with Celery to delegate heavy tasks to
+Celery Workers, secondly we want to use it as notification queue together with python-socketio.
+
+### messaging with python-socketio
+python-socketio define a socketio.KombuManager class that can be used to publish messages to
+RabbitMQ it sends messages on global channel socketio where each manager has its own queue 
+defined, the type of exchange by default is **fanout**
+(https://docs.celeryproject.org/projects/kombu/en/stable/reference/kombu.html#kombu.Exchange.type)
+which means that all queues associated with exchange will get message.

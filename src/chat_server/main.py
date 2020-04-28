@@ -5,11 +5,20 @@ import tornado.web
 import socketio
 
 define("port", default=8888, help="run on the given port", type=int)
-define("debug", default=False, help="run in debug mode")
+define("debug", default=True, help="run in debug mode")
 
-url = 'amqp://guest:guest@localhost:15672//'
+url = 'amqp://guest:guest@localhost:5672//'
+mgr = socketio.KombuManager(url)
+# kombu doesn't support asyncio ?
 sio = socketio.AsyncServer(async_mode='tornado', cors_allowed_origins='http://localhost:8000',
-                           client_manager=socketio.KombuManager(url))
+                           client_manager=socketio.KombuManager())
+# sio = socketio.AsyncServer(async_mode='tornado', cors_allowed_origins='http://localhost:8000')
+
+
+@sio.event
+async def testing(sid, environ):
+    # broadcast
+    await sio.emit('received-testing', {'data': ':)'})
 
 
 @sio.event
