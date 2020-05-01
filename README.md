@@ -68,7 +68,7 @@ python src/chat_server/main.py
 
 Run celery workers(we load tasks from main django project and chat server).
 ```bash
-celery -A mwr -A chat_server worker -l info
+celery -A mwr worker -l debug -Q default
 ```
 
 ## test
@@ -86,6 +86,15 @@ python test.py
 
 After that in Celery logs You will see a message that task was executed. PostgreSQL was used as
 celery backend, You should see celery tables and existing records.
+
+## proof of concept
+I assume that all steps from development section are executed. Go to "http://localhost:8000" as You enter
+a new websocket connection will be established with tornado server. Now in trigger this web request 
+"http://localhost:8000/api/chat/testing/?format=json&message=testing message", the message will be displayed
+in all opened windows. Instead of triggering web request, a python script maybe run too.
+```bash
+python scripts/socket-io-emit-test.py
+```
 
 
 ## architectural explanation
@@ -107,3 +116,17 @@ chat server from main server and Celery workers we will configure Socket.IO serv
 message queue. This will be achieved socketio manager class. KombuManager cannot be used as it doesn't support
 asyncio mode(https://python-socketio.readthedocs.io/en/latest/server.html#kombu). We use AsyncAioPikaManager
 (https://python-socketio.readthedocs.io/en/latest/server.html#aiopika).
+
+## ai
+The last step of this project will create a neural network for messages sentiment analysis. We will first
+train the network to learn how to predict if message is hate/aggressive etc..., save the model and use it
+to predict hate/aggressive level of messages posted by chat participants.
+
+### preparation of learning data sets
+
+### architecture
+
+### training
+
+### implementation
+A celery task that will be triggered when user adds new message.
