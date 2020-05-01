@@ -99,3 +99,11 @@ RabbitMQ it sends messages on global channel socketio where each manager has its
 defined, the type of exchange by default is **fanout**
 (https://docs.celeryproject.org/projects/kombu/en/stable/reference/kombu.html#kombu.Exchange.type)
 which means that all queues associated with exchange will get message.
+
+### tornado chat server
+Tornado is used as it support WebSocket. A websocket communication is handled by python-socketio AsyncServer
+class instance which is used as handler to incoming websocket requests. In order to be able to communicate with
+chat server from main server and Celery workers we will configure Socket.IO server and connect it to RabbitMQ
+message queue. This will be achieved socketio manager class. KombuManager cannot be used as it doesn't support
+asyncio mode(https://python-socketio.readthedocs.io/en/latest/server.html#kombu). We use AsyncAioPikaManager
+(https://python-socketio.readthedocs.io/en/latest/server.html#aiopika).

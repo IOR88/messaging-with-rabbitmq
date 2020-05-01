@@ -14,7 +14,8 @@ class App extends Component {
         this.state = {
             users: [],
             rooms: [],
-            connection: null
+            connection: null,
+            testing: []
         };
     }
 
@@ -38,23 +39,18 @@ class App extends Component {
         this.setState({connection});
 
         connection.on('connect', (socket) => {
-            console.log('CONNECT');
+            console.log('connected');
         });
 
         connection.on('disconnect', (socket) => {
-            console.log('DISCONNECT');
+            console.log('disconnected');
         });
         connection.on('testing', (socket) => {
-            window.alert(socket);
-            debugger;
+
+            this.setState({testing: [...this.state.testing, socket]});
 
         });
 
-        connection.on('received-testing', (socket) => {
-            window.alert(socket);
-            debugger;
-
-        });
     }
 
     render(){
@@ -63,6 +59,13 @@ class App extends Component {
             <header>Messaging with RabbitMQ</header>
             <p>Available users: {JSON.stringify(this.state.users)}</p>
             <p>Available rooms: {JSON.stringify(this.state.rooms)}</p>
+
+            <div>
+                Listing received messages:
+                {this.state.testing.map((msg)=>{
+                    return <p>{msg.data}</p>
+                })}
+            </div>
 
         </div>
     }
