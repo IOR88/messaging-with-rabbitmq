@@ -128,6 +128,16 @@ First important question is how do we obtain valuable dataset ? We would like to
 In order to validate the network predictions which has learned with reviews dataset we will need to prepare some validation set of real chat statements. This set will be not used during training to validate it  should be treated more 
 as a proof of concept.
 
+Dataset: https://archive.ics.uci.edu/ml/datasets/Sentiment+Labelled+Sentences#
+Dataset was created for this Paper 'From Group to Individual Labels using Deep Features', Kotzias et. al,. KDD 2015
+
+
+* preprocessing
+* encoding of vocabulary
+* encoding of dataset samples(reviews/statements)
+* encoding of lables/targets if needed
+* removing outliers
+
 #### architecture
 
 #### training

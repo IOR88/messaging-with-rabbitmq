@@ -2,6 +2,9 @@ from string import punctuation
 from collections import Counter
 
 
+def load_dataset(fdir: str) -> str:...
+
+
 def preprocess(text: str) -> str:
     """
     The main data pre processing logic
@@ -24,3 +27,13 @@ def encoding(text: str) -> tuple:
     # very high frequency and doesn't provide any semantic to the text meaning.
 
     return vocab_to_int, int_to_vocab
+
+
+def removing_outliers(text: str) -> str:
+    """
+    Getting rid of extremely long or short text; the outliers
+    Padding/truncating the remaining data so that we have reviews of the same length.
+    Although I am not sure about padding/truncating as statements maybe of
+    different length ? Or maybe this make sense for learning purposes only.
+    :param text:
+    """
