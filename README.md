@@ -122,11 +122,20 @@ The last step of this project will create a neural network for messages sentimen
 train the network to learn how to predict if message is hate/aggressive etc..., save the model and use it
 to predict hate/aggressive level of messages posted by chat participants.
 
-### preparation of learning data sets
+#### preparation of learning data sets
+First important question is how do we obtain valuable dataset ? We would like to have statements which are already labeled positive||negative. We know that dataset of this kind exist for movies/books reviews, review is much more longer than single statement during statements exchange among people but we could give it a try and check out what the results are.
 
-### architecture
+In order to validate the network predictions which has learned with reviews dataset we will need to prepare some validation set of real chat statements. This set will be not used during training to validate it  should be treated more 
+as a proof of concept.
 
-### training
+#### architecture
 
-### implementation
-A celery task that will be triggered when user adds new message.
+#### training
+
+#### implementation
+A celery task that will be triggered when user adds new message and predict if
+the statement is positive or negative than this message will be sent to client
+application and colored green or red.
+
+#### improvements
+* Add subsampling by Mikolov to remove words with high frequency and reduce noise.
